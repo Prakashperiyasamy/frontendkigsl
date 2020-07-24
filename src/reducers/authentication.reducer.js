@@ -1,9 +1,10 @@
-import { userConstants } from '../constants';
+import { userConstants } from '../constants/userconstant';
 
 let user = JSON.parse(localStorage.getItem('user'));
 const initialState = user ? { loggedIn: true, user } : {};
 
 export function authentication(state = initialState, action) {
+    console.log("jjjjdf",action)
     switch (action.type) {
        
         case userConstants.LOGIN_SUCCESS:

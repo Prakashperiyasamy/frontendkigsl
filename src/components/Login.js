@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory ,withRouter} from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 
 import Loader from './Loader';
 import validate from '../customHooks/LoginFormvalidation'
@@ -20,17 +20,16 @@ const Login = (props) => {
 
     async function handleSubmit(event) {
         event.preventDefault();
-        // history.push('/dashboard')
 
-        // setIsLoading(true);
-        // setErrors(validate(fields));
+        setErrors(validate(fields));
         try {
-           
-        // console.log(history,fields)
-
+            if (Object.keys(errors).length == 0) {
                 dispatch(userActions.login(fields.email, fields.password));
-            
-            // console.log(fields)
+                setTimeout(() => {
+                    setIsLoading(false);
+                }, 2000);
+
+            }
 
         } catch (e) {
 

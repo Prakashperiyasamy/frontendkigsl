@@ -3,27 +3,36 @@ import useFormFields from './../customHooks/inputcustomHooks.js';
 import Loader from './Loader';
 import validate from '../customHooks/LoginFormvalidation';
 import { useHistory } from 'react-router-dom';
+import { userActions } from './../actions/login.action'
+import { useDispatch, useSelector } from 'react-redux';
 
 const Register = () => {
     const history = useHistory();
+    const dispatch = useDispatch();
 
-    const [fields, handleFieldChange] = useFormFields({
-        email: "",
-        password: "",
-        username: "",
-        location: "",
-        phonenumber: ""
+    const [fields, handleFieldChange, reset] = useFormFields({
+        firstName: "", password: "", email: "", phone_number: "", lastName: ""
     });
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState({});
     async function handleSubmit(event) {
         event.preventDefault();
-
-        setIsLoading(true);
         setErrors(validate(fields));
         try {
-
-            console.log(fields)
+            if (Object.keys(errors).length == 0) {
+                setIsLoading(true);
+                dispatch(userActions.register(
+                    fields.firstName,
+                    fields.lastName,
+                    fields.email,
+                    fields.password,
+                    fields.phone_number
+                ))
+                setTimeout(() => {
+                    setIsLoading(false);
+                    reset()
+                }, 2000);
+            }
 
         } catch (e) {
 
@@ -39,16 +48,31 @@ const Register = () => {
                     <div class="login-row">
                         <div class="login-col-12">
                             <div class="form-group">
-                                <label>UserName</label>
+                                <label>First Name</label>
                                 <div class="inputgroup">
                                     <input type="text"
-                                        placeholder="Enter the username"
-                                        name="username"
-                                        value={fields.username}
+                                        placeholder="Enter the firstName"
+                                        name="firstName"
+                                        value={fields.firstName}
                                         onChange={handleFieldChange}
                                     />
                                     <i class="fa fa-user" aria-hidden="true"></i>
-                                    <span style={{ color: "red" }}>{errors.username}</span>
+                                    <span style={{ color: "red" }}>{errors.firstName}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="login-col-12">
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <div class="inputgroup">
+                                    <input type="text"
+                                        placeholder="Enter the lastName"
+                                        name="lastName"
+                                        value={fields.lastName}
+                                        onChange={handleFieldChange}
+                                    />
+                                    <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                                    <span style={{ color: "red" }}>{errors.lastName}</span>
                                 </div>
                             </div>
                         </div>
@@ -81,33 +105,20 @@ const Register = () => {
                                     <span style={{ color: "red" }}>{errors.password}</span>
                                 </div>
                             </div>
-                        </div> <div class="login-col-12">
-                            <div class="form-group">
-                                <label>Location</label>
-                                <div class="inputgroup">
-                                    <input type="text"
-                                        placeholder="Enter the Location"
-                                        name="location"
-                                        value={fields.location}
-                                        onChange={handleFieldChange}
-                                    />
-                                    <i class="fa fa-unlock-alt" aria-hidden="true"></i>
-                                    <span style={{ color: "red" }}>{errors.location}</span>
-                                </div>
-                            </div>
                         </div>
+
                         <div class="login-col-12">
                             <div class="form-group">
                                 <label>Phone-Number</label>
                                 <div class="inputgroup">
                                     <input type="number"
-                                        name="phonenumber"
+                                        name="phone_number"
                                         placeholder="Enter the phonenumber"
-                                        value={fields.phonenumber}
+                                        value={fields.phone_number}
                                         onChange={handleFieldChange}
                                     />
                                     <i class="fa fa-unlock-alt" aria-hidden="true"></i>
-                                    <span style={{ color: "red" }}>{errors.phonenumber}</span>
+                                    <span style={{ color: "red" }}>{errors.phone_number}</span>
                                 </div>
                             </div>
                         </div>

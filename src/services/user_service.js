@@ -6,14 +6,15 @@ export const userService = {
 };
 
 function login(username, password) {
-    console.log(username,password)
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    };
 
-    return axios.post(`http://localhost:4545/api/auth`, requestOptions)
+    return  axios({
+        method: 'post',
+        url: 'http://127.0.0.1:4545/api/auth',
+        data: {
+            "email":username,
+            "password":password
+      }
+      })
         // .then(handleResponse)
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -26,11 +27,10 @@ function login(username, password) {
 
 function register(user) {
     console.log(user,"00000000000")
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(user)
-    };
-
-    return fetch(`/users/register`, requestOptions).then(handleResponse =>handleResponse);
+    return  axios({
+        method: 'post',
+        url: 'http://localhost:4545/api/users',
+        data: user
+      })
+    
 }

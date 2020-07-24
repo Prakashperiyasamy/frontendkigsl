@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import todos from "./todo.reducers";
-import filterTodo from "./filter.reducers";
+
+import { authentication } from './authentication.reducer'
+import { registration } from './registration.reducer'
+
 
 export default combineReducers({
-  todos,
-  filterTodo
+  registration,
+  authentication
 });

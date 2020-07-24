@@ -11,7 +11,8 @@ const useFormFields =(initialState)=> {
         ...fields,
         [event.target.name]: event.target.value
       });
-    }
+    },
+     () => setValues({...initialState}),
   ];
 }
 
