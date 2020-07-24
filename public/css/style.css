@@ -647,6 +647,10 @@ button:focus {
 .add-contact {
     position: relative;
 }
+.add-contact::before {
+    position: absolute;
+    content: '';
+}
 
 .add-contact .modal-header {
     padding: 6px 12px;
