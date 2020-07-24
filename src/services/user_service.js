@@ -1,5 +1,6 @@
 import { authHeader } from '../helpers/auth-header';
 import axios from 'axios';
+import { URL } from './../config'
 export const userService = {
     login,
     register
@@ -7,30 +8,28 @@ export const userService = {
 
 function login(username, password) {
 
-    return  axios({
+    return axios({
         method: 'post',
-        url: 'http://127.0.0.1:4545/api/auth',
+        url: URL.LOGIN,
         data: {
-            "email":username,
-            "password":password
-      }
-      })
+            "email": username,
+            "password": password
+        }
+    })
         // .then(handleResponse)
         .then(user => {
             // store user details and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('user', JSON.stringify(user));
-
+            localStorage.setItem('user', JSON.stringify(user.data.token));
             return user;
         });
 }
 
 
 function register(user) {
-    console.log(user,"00000000000")
-    return  axios({
+    return axios({
         method: 'post',
-        url: 'http://localhost:4545/api/users',
+        url: URL.REGISTER,
         data: user
-      })
-    
+    })
+
 }

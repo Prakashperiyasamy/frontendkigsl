@@ -9,9 +9,7 @@ function totalcontact(payload) {
         contactService.totalcontact(payload)
             .then(
                 user => {
-                    console.log(user, "chennai")
                     dispatch(success(user));
-
                 },
                 error => {
                     dispatch(failure(error));
@@ -26,12 +24,10 @@ function totalcontact(payload) {
 
 
 function addcontact(payload) {
-    console.log("sdsdfsdfsdfdsff", payload)
     return function (dispatch) {
         contactService.addcontact(payload)
             .then(
                 user => {
-                    console.log(user)
                     dispatch(success(user));
                     totalcontact()
 
@@ -54,7 +50,7 @@ function updatecontact(payload,id) {
         contactService.updatecontact(payload,id)
             .then(
                 user => {
-                    console.log(user)
+
                     dispatch(success(user));
                 },
                 error => {
@@ -69,12 +65,12 @@ function updatecontact(payload,id) {
 }
 
 function deletecontact(payload) {
-    console.log(payload)
+   
     return function (dispatch) {
         contactService.deletecontacts(payload)
             .then(
                 user => {
-                    console.log(user)
+                   
                     dispatch(success(user));
                     totalcontact()
 
@@ -96,7 +92,7 @@ function callCount(payload) {
         contactService.callcount(payload)
             .then(
                 user => {
-                    console.log(user)
+                  
                     dispatch(success(user));
                     history.push('/dashboard');
                 },

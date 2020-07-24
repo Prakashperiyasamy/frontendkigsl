@@ -7,7 +7,7 @@ const Header = () => {
     let totalcontact = useSelector(state => state.contactReducer.totalcontact)
     const [teams, setTeams] = React.useState(totalcontact);
     const [search, setSearch] = React.useState("");
-    console.log(teams, "teams")
+ 
     return (
         <>
             <div class="top-header">
@@ -19,8 +19,6 @@ const Header = () => {
                                 const test = totalcontact.filter(team => {
                                     return team.name.toLowerCase().includes(e.target.value.toLowerCase());
                                 });
-                                console.log("test: ", test);
-
                                 // uncomment line below and teams is logged as I want
                                 setTeams(test);
                                 setSearch(e.target.value);

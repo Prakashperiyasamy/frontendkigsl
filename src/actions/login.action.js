@@ -15,7 +15,7 @@ function login(username, password) {
         userService.login(username, password)
             .then(
                 user => {
-                    console.log(user)
+                 
                     dispatch(success(user));
                     history.push('/dashboard');
                 },
@@ -31,7 +31,7 @@ function login(username, password) {
 }
 
 function register(firstName,lastName, email,password, phone_number ) {
-    console.log("sdfsdfsdfdsf")
+ 
     return function (dispatch) {
         const payload = {
             firstName,

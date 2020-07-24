@@ -62,8 +62,6 @@ function Model(props) {
     }
 
 
-   
-   console.log("props chanfe",props)
     return (<div class="add-contact">
         <div class="modal" style={props.Enable ? { display: 'block' } : { display: 'none' }} >
             <div class="modal-dialog modal-dialog-centered" role="document">

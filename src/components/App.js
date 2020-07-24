@@ -4,6 +4,8 @@ import React from "react";
 // import Footer from "../containers/Footer";
 import Register from './../components/Register';
 import Login from './../components/Login';
+import { NotFound } from './../components/Notfound';
+import { ProtectedRoute } from '../components/ProtectedRoute'
 import MainDashboard from './../components/Dashboard/mainDashboard'
 import {
   BrowserRouter as Router,
@@ -16,14 +18,17 @@ function App() {
 
   return (
     <Switch>
-      <Route exact path="/">
+      <Route exact path="/" render>
         <Login />
       </Route>
       <Route path="/register">
         <Register />
       </Route>
-      <Route path="/dashboard">
-        <MainDashboard />
+      <ProtectedRoute path="/dashboard" component={MainDashboard}>
+
+      </ProtectedRoute>
+      <Route >
+        <NotFound />
       </Route>
     </Switch>)
 }

@@ -1,5 +1,7 @@
 import { authHeader } from '../helpers/auth-header';
 import axios from 'axios';
+import { URL } from './../config'
+let token = JSON.parse(localStorage.getItem('user'));
 export const contactService = {
     totalcontact,
     addcontact,
@@ -11,7 +13,11 @@ export const contactService = {
 function totalcontact() {
     return axios({
         method: 'get',
-        url: 'http://localhost:4545/api/call/allcontact',
+        url: URL.TOTALCONTACT,
+        headers: {
+            'x-auth-token': token,
+            'Content-Type': 'application/json'
+        }
     })
 
 }
@@ -19,29 +25,40 @@ function addcontact(user) {
 
     return axios({
         method: 'post',
-        url: 'http://localhost:4545/api/call/createcontact',
-        data: user
+        url: URL.CREATECONTACT,
+        data: user,
+        headers: {
+            'x-auth-token': token,
+            'Content-Type': 'application/json'
+        }
     })
 
 }
 
 
-function updatecontact(payload,id) {
+function updatecontact(payload, id) {
 
     return axios({
         method: 'put',
-        url: `http://localhost:4545/api/call/updatecontact/${id}`,
-        data: payload
+        url: URL.UPDATECONTACT + `/${id}`,
+        data: payload,
+        headers: {
+            'x-auth-token': token,
+            'Content-Type': 'application/json'
+        }
     })
 
 }
 
 function deletecontacts(user) {
 
-    console.log("delete",user)
     return axios({
         method: 'delete',
-        url: `http://localhost:4545/api/call/deleteContact/${user._id}`
+        url: URL.DELETECONTACT + `/${user._id}`,
+        headers: {
+            'x-auth-token': token,
+            'Content-Type': 'application/json'
+        }
     })
 
 }
@@ -50,8 +67,12 @@ function callcount(user) {
 
     return axios({
         method: 'post',
-        url: 'http://localhost:4545/api/call/callHistory',
-        data: user
+        url: URL.CALLCOUNT,
+        data: user,
+        headers: {
+            'x-auth-token': token,
+            'Content-Type': 'application/json'
+        }
     })
 
 }
