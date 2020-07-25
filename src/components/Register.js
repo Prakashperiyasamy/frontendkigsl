@@ -41,12 +41,8 @@ const Register = () => {
     }
     const auth = useSelector(state => state.registration);
     useEffect(() => {
-        //    console.log(props,auth,"useEffect")
         if (auth.registerIn) {
-            console.log(auth.registerIn, "loggingIn")
-
             history.push('/dashboard')
-
         }
     }, [auth.registerIn])
     return (

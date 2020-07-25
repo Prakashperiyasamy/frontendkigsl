@@ -1,8 +1,17 @@
 import { contactService } from '../services/contact_service'
 import { userConstants } from '../constants/userconstant'
 import { history } from '../helpers/history';
+import { ToastContainer, toast } from 'react-toastify';
 
-
+let options = {
+    position: "top-right",
+    autoClose: 2000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    }
 
 function totalcontact(payload) {
     return function (dispatch) {
@@ -31,10 +40,12 @@ function addcontact(payload,auth) {
 
                     dispatch(success(user));
                     dispatch(totalcontact(auth))
-
+                    toast.success(user.data.message,options)
                     // history.push('/dashboard');
                 },
                 error => {
+                    toast.error(error.response.data.errors[0].msg,options );
+                    dispatch(totalcontact(auth))
                     dispatch(failure(error));
                 }
             );
@@ -47,16 +58,18 @@ function addcontact(payload,auth) {
 
 
 function updatecontact(payload,id,auth) {
-    console.log("updated",auth)
+  
     return function (dispatch) {
         contactService.updatecontact(payload,id,auth)
             .then(
                 user => {
-
+                    toast.success(user.data.message,options );
                     dispatch(success(user));
                     dispatch(totalcontact(auth))
                 },
                 error => {
+                    toast.error(error.response.data.errors[0].msg,options );
+                    dispatch(totalcontact(auth))
                     dispatch(failure(error));
                 }
             );
@@ -68,18 +81,20 @@ function updatecontact(payload,id,auth) {
 }
 
 function deletecontact(payload,auth) {
-   console.log("auth && auth.user ? auth.user : token",auth)
+
     return function (dispatch) {
         contactService.deletecontacts(payload,auth)
             .then(
                 user => {
-                   
+                    toast.success(user.data.message,options );
                     dispatch(success(user));
                     dispatch(totalcontact(auth))
 
                     // history.push('/dashboard');
                 },
                 error => {
+                    toast.error(error.response.data.errors[0].msg,options );
+                    dispatch(totalcontact(auth))
                     dispatch(failure(error));
                 }
             );
@@ -100,6 +115,7 @@ function callCount(payload,auth) {
                     history.push('/dashboard');
                 },
                 error => {
+                    toast.error(error.response.data.errors[0].msg,options );
                     dispatch(failure(error));
                 }
             );

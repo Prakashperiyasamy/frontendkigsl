@@ -13,29 +13,44 @@ import {
   Route,
   useParams
 } from "react-router-dom";
-import {useHistory} from 'react-router'
+import { useHistory } from 'react-router'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
-    // console.log(useHistory().)
-    let history = useHistory()
-    useEffect(()=>{
-      window.addEventListener("popstate", () => {
-        history.go();
-      });
-    },[history])
+  
+  let history = useHistory()
+  useEffect(() => {
+    window.addEventListener("popstate", () => {
+      history.go();
+    });
+  }, [history])
   return (
-    <Switch>
-      <Route exact path="/" component={Login}>
+    <>
+      <ToastContainer
+      position="top-right"
+      autoClose={1000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      />
+      <Switch>
+        <Route exact path="/" component={Login}>
+        </Route>
+        <Route path="/register" component={Register}>
 
-      </Route>
-      <Route path="/register" component={Register}>
-
-      </Route>
-      <ProtectedRoute path="/dashboard" component={MainDashboard}>
-      </ProtectedRoute>
-      <Route >
-        <NotFound />
-      </Route>
-    </Switch>)
+        </Route>
+        <ProtectedRoute path="/dashboard" component={MainDashboard}>
+        </ProtectedRoute>
+        <Route >
+          <NotFound />
+        </Route>
+      </Switch>
+    </>)
 }
 
 export default App;

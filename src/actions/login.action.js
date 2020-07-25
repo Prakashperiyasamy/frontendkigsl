@@ -1,13 +1,25 @@
 import { userService } from '../services/user_service'
 import { userConstants } from './../constants/userconstant'
 import { history } from '../helpers/history';
+import { ToastContainer, toast } from 'react-toastify';
+
 // import { useHistory, withRouter } from 'react-router-dom';
 // let history = useHistory()
+
+let options = {
+    position: "top-right",
+    autoClose: 1000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    }
+ 
 export const userActions = {
     login,
     register
 };
-
 
 
 
@@ -16,11 +28,14 @@ function login(username, password) {
         userService.login(username, password)
             .then(
                 user => {
-                    console.log("user Deatails",user)
+                    toast.success('Logged In successfully',options );
+        
                     dispatch(success(user.data.token));
                     // history.push('http://localhost:3000/dashboard');
                 },
                 error => {
+                   
+                  toast.error(error.response.data.errors[0].msg,options );
                     dispatch(failure(error));
                 }
             );
@@ -46,10 +61,12 @@ function register(firstName,lastName, email,password, phone_number ) {
             .then(
                 user => {
                     dispatch(success(user.data.token));
-                    // dispatch(success(user));
-                    history.push('/');
+                    toast.success('Register successfully',options );
                 },
                 error => {
+
+                    toast.error(error.response.data.errors[0].msg,options );
+
                     dispatch(failure(error));
 
                 }

@@ -7,14 +7,14 @@ const Header = () => {
     let totalcontact = useSelector(state => state.contactReducer.totalcontact)
     const [teams, setTeams] = React.useState(totalcontact);
     const [search, setSearch] = React.useState("");
- 
+
     return (
         <>
             <div class="top-header">
                 <div class="search-phone-view d-flex align-items-center">
                     <div class="search-box">
                         <input type="text"
-                            placeholder="Type in to Search.."
+                            placeholder=" Search by name.."
                             onChange={e => {
                                 const test = totalcontact.filter(team => {
                                     return team.name.toLowerCase().includes(e.target.value.toLowerCase());

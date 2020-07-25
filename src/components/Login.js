@@ -19,7 +19,7 @@ const Login = (props) => {
 
     const dispatch = useDispatch();
 
-    console.log(auth,"loggingIn")
+
 
      async function handleSubmit(event) {
         event.preventDefault();
@@ -27,15 +27,7 @@ const Login = (props) => {
         setErrors(validate(fields));
         try {
             if (Object.keys(errors).length == 0) {
-                dispatch(userActions.login(fields.email, fields.password));
-                // setTimeout(() => {
-                    // setIsLoading(false);
-                    console.log(auth,"Before Login")
-                   let res = await auth.loggedIn
-                   
-                    
-                // }, 1000);
-                
+                dispatch(userActions.login(fields.email, fields.password));  
             }
 
         } catch (e) {
@@ -45,17 +37,14 @@ const Login = (props) => {
     }
 
     useEffect(() => {
-    //    console.log(props,auth,"useEffect")
+  
        if(auth.loggedIn)
                     {
-                        console.log(auth.loggedIn,"loggingIn")
-
                         history.push('/dashboard')
-
                     }
     }, [auth.loggedIn])
 
-   console.log("propps",props,history)
+
 
     return (<div class="login-wrapper">
         <div class="login-box">

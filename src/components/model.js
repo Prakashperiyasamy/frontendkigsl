@@ -11,12 +11,12 @@ function Model(props) {
         number:  props.EditData =="" ? "":props.EditData.number,
         location:  props.EditData =="" ? "":props.EditData.location,
     });
+
     const [errors, setErrors] = useState({});
     const auth = useSelector(state => state.authentication);
-  
-console.log("modellllllll",auth)
     const dispatch = useDispatch();
 
+    
     async function handleSubmit(event) {
         event.preventDefault();
 

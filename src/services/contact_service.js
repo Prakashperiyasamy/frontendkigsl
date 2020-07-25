@@ -11,7 +11,6 @@ export const contactService = {
 };
 
 function totalcontact(auth) {
-    console.log(auth, "---->")
     return axios({
         method: 'get',
         url: URL.TOTALCONTACT,
@@ -52,7 +51,6 @@ function updatecontact(payload, id, auth) {
 }
 
 function deletecontacts(user, auth) {
-    console.log(auth && auth.user ? auth.user : token, "delete")
     return axios({
         method: 'delete',
         url: URL.DELETECONTACT + `/${user._id}`,

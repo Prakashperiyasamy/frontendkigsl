@@ -16,15 +16,8 @@ const BodyDashboard = (props) => {
         
         if(auth.loggedIn)
         {
-            console.log("dashoard if ",auth.loggedIn)
-
             await dispatch(contactActions.totalcontact(auth))
-
-
-        }else{
-            console.log("dashoard else ",auth.loggedIn)
         }
-
     }, [])
 
     const enableClick = () => {
@@ -37,7 +30,6 @@ const BodyDashboard = (props) => {
     }
 
     let count = props.teams.length > 0 ? props.teams : totalCount;
-    console.log("count",count)
     return (
         <div>
             <div class="crm-bodycontent">
