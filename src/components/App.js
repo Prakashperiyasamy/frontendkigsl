@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import AddTodo from "../containers/AddTodo";
 // import TodoList from "../containers/TodoList";
 // import Footer from "../containers/Footer";
@@ -13,19 +13,24 @@ import {
   Route,
   useParams
 } from "react-router-dom";
-
+import {useHistory} from 'react-router'
 function App() {
-
+    // console.log(useHistory().)
+    let history = useHistory()
+    useEffect(()=>{
+      window.addEventListener("popstate", () => {
+        history.go();
+      });
+    },[history])
   return (
     <Switch>
-      <Route exact path="/" render>
-        <Login />
+      <Route exact path="/" component={Login}>
+
       </Route>
-      <Route path="/register">
-        <Register />
+      <Route path="/register" component={Register}>
+
       </Route>
       <ProtectedRoute path="/dashboard" component={MainDashboard}>
-
       </ProtectedRoute>
       <Route >
         <NotFound />

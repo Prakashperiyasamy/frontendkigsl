@@ -23,13 +23,14 @@ function totalcontact(payload) {
 }
 
 
-function addcontact(payload) {
+function addcontact(payload,auth) {
     return function (dispatch) {
-        contactService.addcontact(payload)
+        contactService.addcontact(payload,auth)
             .then(
                 user => {
+
                     dispatch(success(user));
-                    totalcontact()
+                    dispatch(totalcontact(auth))
 
                     // history.push('/dashboard');
                 },
@@ -45,13 +46,15 @@ function addcontact(payload) {
 }
 
 
-function updatecontact(payload,id) {
+function updatecontact(payload,id,auth) {
+    console.log("updated",auth)
     return function (dispatch) {
-        contactService.updatecontact(payload,id)
+        contactService.updatecontact(payload,id,auth)
             .then(
                 user => {
 
                     dispatch(success(user));
+                    dispatch(totalcontact(auth))
                 },
                 error => {
                     dispatch(failure(error));
@@ -64,15 +67,15 @@ function updatecontact(payload,id) {
     function failure(error) { return { type: userConstants.UPDATE_CONTACT_FAILURE, error } }
 }
 
-function deletecontact(payload) {
-   
+function deletecontact(payload,auth) {
+   console.log("auth && auth.user ? auth.user : token",auth)
     return function (dispatch) {
-        contactService.deletecontacts(payload)
+        contactService.deletecontacts(payload,auth)
             .then(
                 user => {
                    
                     dispatch(success(user));
-                    totalcontact()
+                    dispatch(totalcontact(auth))
 
                     // history.push('/dashboard');
                 },
@@ -87,9 +90,9 @@ function deletecontact(payload) {
     function failure(error) { return { type: userConstants.DELETE_CONTACT_FAILURE, error } }
 }
 
-function callCount(payload) {
+function callCount(payload,auth) {
     return function (dispatch) {
-        contactService.callcount(payload)
+        contactService.callcount(payload,auth)
             .then(
                 user => {
                   

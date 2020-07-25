@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import useFormFields from './../customHooks/inputcustomHooks.js';
 import Loader from './Loader';
 import validate from '../customHooks/LoginFormvalidation';
@@ -39,7 +39,16 @@ const Register = () => {
             setIsLoading(false);
         }
     }
+    const auth = useSelector(state => state.registration);
+    useEffect(() => {
+        //    console.log(props,auth,"useEffect")
+        if (auth.registerIn) {
+            console.log(auth.registerIn, "loggingIn")
 
+            history.push('/dashboard')
+
+        }
+    }, [auth.registerIn])
     return (
         <div class="login-wrapper">
             <div class="login-box">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useHistory, withRouter } from 'react-router-dom';
 
 import Loader from './Loader';
@@ -15,20 +15,27 @@ const Login = (props) => {
     });
     const [isLoading, setIsLoading] = useState(false);
     const [errors, setErrors] = useState({});
-    // const loggingIn = useSelector(state => state.authentication.loggingIn);
+    const auth = useSelector(state => state.authentication);
+
     const dispatch = useDispatch();
 
-    async function handleSubmit(event) {
+    console.log(auth,"loggingIn")
+
+     async function handleSubmit(event) {
         event.preventDefault();
 
         setErrors(validate(fields));
         try {
             if (Object.keys(errors).length == 0) {
                 dispatch(userActions.login(fields.email, fields.password));
-                setTimeout(() => {
-                    setIsLoading(false);
-                }, 2000);
-
+                // setTimeout(() => {
+                    // setIsLoading(false);
+                    console.log(auth,"Before Login")
+                   let res = await auth.loggedIn
+                   
+                    
+                // }, 1000);
+                
             }
 
         } catch (e) {
@@ -36,6 +43,19 @@ const Login = (props) => {
             setIsLoading(false);
         }
     }
+
+    useEffect(() => {
+    //    console.log(props,auth,"useEffect")
+       if(auth.loggedIn)
+                    {
+                        console.log(auth.loggedIn,"loggingIn")
+
+                        history.push('/dashboard')
+
+                    }
+    }, [auth.loggedIn])
+
+   console.log("propps",props,history)
 
     return (<div class="login-wrapper">
         <div class="login-box">

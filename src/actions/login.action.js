@@ -1,7 +1,8 @@
 import { userService } from '../services/user_service'
 import { userConstants } from './../constants/userconstant'
 import { history } from '../helpers/history';
-
+// import { useHistory, withRouter } from 'react-router-dom';
+// let history = useHistory()
 export const userActions = {
     login,
     register
@@ -15,9 +16,9 @@ function login(username, password) {
         userService.login(username, password)
             .then(
                 user => {
-                 
-                    dispatch(success(user));
-                    history.push('/dashboard');
+                    console.log("user Deatails",user)
+                    dispatch(success(user.data.token));
+                    // history.push('http://localhost:3000/dashboard');
                 },
                 error => {
                     dispatch(failure(error));
@@ -44,7 +45,8 @@ function register(firstName,lastName, email,password, phone_number ) {
         userService.register(payload)
             .then(
                 user => {
-                    dispatch(success(user));
+                    dispatch(success(user.data.token));
+                    // dispatch(success(user));
                     history.push('/');
                 },
                 error => {

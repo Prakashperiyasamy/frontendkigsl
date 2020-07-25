@@ -12,8 +12,9 @@ function Model(props) {
         location:  props.EditData =="" ? "":props.EditData.location,
     });
     const [errors, setErrors] = useState({});
+    const auth = useSelector(state => state.authentication);
   
-
+console.log("modellllllll",auth)
     const dispatch = useDispatch();
 
     async function handleSubmit(event) {
@@ -30,7 +31,7 @@ function Model(props) {
                     "number": +fields.number,
                     "location": fields.location
                 }
-                dispatch(contactActions.updatecontact(payload,props.EditData._id));
+                dispatch(contactActions.updatecontact(payload,props.EditData._id,auth));
                 setTimeout(() => {
                     props.enableClick()
                     reset()
@@ -48,7 +49,7 @@ function Model(props) {
                     "number": +fields.number,
                     "location": fields.location
                 }
-                dispatch(contactActions.addcontact(payload));
+                dispatch(contactActions.addcontact(payload,auth));
                 setTimeout(() => {
                     props.enableClick()
                     reset()

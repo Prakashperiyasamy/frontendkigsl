@@ -5,7 +5,7 @@ const initialState = {
 }
 
 export function contactReducer(state = initialState, action) {
-
+ console.log("contactReducer",action)
     switch (action.type) {
 
         case userConstants.TOTAL_CONTACT_SUCCESS:

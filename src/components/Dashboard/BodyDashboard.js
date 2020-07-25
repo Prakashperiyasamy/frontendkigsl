@@ -10,9 +10,22 @@ const BodyDashboard = (props) => {
 
     const dispatch = useDispatch()
     const totalCount = useSelector(state => state.contactReducer.totalcontact)
-    useEffect(() => {
-        dispatch(contactActions.totalcontact())
-    }, [Enable])
+    const auth = useSelector(state => state.authentication);
+ 
+    useEffect(async () => {
+        
+        if(auth.loggedIn)
+        {
+            console.log("dashoard if ",auth.loggedIn)
+
+            await dispatch(contactActions.totalcontact(auth))
+
+
+        }else{
+            console.log("dashoard else ",auth.loggedIn)
+        }
+
+    }, [])
 
     const enableClick = () => {
         setEnable(data => !data)
@@ -24,6 +37,7 @@ const BodyDashboard = (props) => {
     }
 
     let count = props.teams.length > 0 ? props.teams : totalCount;
+    console.log("count",count)
     return (
         <div>
             <div class="crm-bodycontent">
@@ -103,7 +117,7 @@ const BodyDashboard = (props) => {
                                         <td>{each.Incomingcall_Count}</td>
                                         <td>{each.created_date}</td>
                                         <td><i class="fa fa-pencil-square-o" aria-hidden="true" onClick={() => handleEdit(each)}></i></td>
-                                        <td><i class="fa fa-trash" aria-hidden="true" onClick={() => { dispatch(contactActions.deletecontact(each)) }}></i>
+                                        <td><i class="fa fa-trash" aria-hidden="true" onClick={() => { dispatch(contactActions.deletecontact(each,auth)) }}></i>
                                         </td>
                                         {/* <td class="text-right edu-bttn dropdown">
                                     <button type="button" class="activetoggle dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

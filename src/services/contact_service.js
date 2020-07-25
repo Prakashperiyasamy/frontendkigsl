@@ -10,25 +10,26 @@ export const contactService = {
     callcount
 };
 
-function totalcontact() {
+function totalcontact(auth) {
+    console.log(auth, "---->")
     return axios({
         method: 'get',
         url: URL.TOTALCONTACT,
         headers: {
-            'x-auth-token': token,
+            'x-auth-token': auth && auth.user ? auth.user : token,
             'Content-Type': 'application/json'
         }
     })
 
 }
-function addcontact(user) {
+function addcontact(user, auth) {
 
     return axios({
         method: 'post',
         url: URL.CREATECONTACT,
         data: user,
         headers: {
-            'x-auth-token': token,
+            'x-auth-token': auth && auth.user ? auth.user : token,
             'Content-Type': 'application/json'
         }
     })
@@ -36,41 +37,41 @@ function addcontact(user) {
 }
 
 
-function updatecontact(payload, id) {
+function updatecontact(payload, id, auth) {
 
     return axios({
         method: 'put',
         url: URL.UPDATECONTACT + `/${id}`,
         data: payload,
         headers: {
-            'x-auth-token': token,
+            'x-auth-token': auth && auth.user ? auth.user : token,
             'Content-Type': 'application/json'
         }
     })
 
 }
 
-function deletecontacts(user) {
-
+function deletecontacts(user, auth) {
+    console.log(auth && auth.user ? auth.user : token, "delete")
     return axios({
         method: 'delete',
         url: URL.DELETECONTACT + `/${user._id}`,
         headers: {
-            'x-auth-token': token,
+            'x-auth-token': auth && auth.user ? auth.user : token,
             'Content-Type': 'application/json'
         }
     })
 
 }
 
-function callcount(user) {
+function callcount(user, auth) {
 
     return axios({
         method: 'post',
         url: URL.CALLCOUNT,
         data: user,
         headers: {
-            'x-auth-token': token,
+            'x-auth-token': auth && auth.user ? auth.user : token,
             'Content-Type': 'application/json'
         }
     })
